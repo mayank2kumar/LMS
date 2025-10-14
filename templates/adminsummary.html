@@ -1,0 +1,93 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Summary Page
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Summary</h1>
+  <div class="chart-container" style="position: relative; height:70vh; width:160vw">
+    <p>This Bar Chart provides a summary for the count of chapters and quizzes for each subject.</p>
+    <canvas id="count"></canvas>
+  </div>
+  <br> <br>
+  <hr>
+  <div class="chart-container" style="position: relative; height:70vh; width:160vw">
+    <p>This Bar Chart provides a summary of maximum and minimum score obtained for each quiz. </p>
+    <canvas id="score"></canvas>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // First chart (count chart)
+  const ctx1 = document.getElementById('count').getContext('2d');
+
+  new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels: {{ subject_name|tojson }},
+      datasets: [
+        {
+          label: '# of Chapters',
+          data: {{ chapter_count|tojson }},
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        },
+        {
+          label: '# of Quizzes',
+          data: {{ quiz_count|tojson }},
+          backgroundColor: 'rgba(153, 102, 255, 0.2)',
+          borderColor: 'rgba(153, 102, 255, 1)',
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  // Second chart (score chart)
+  const ctx2 = document.getElementById('score').getContext('2d');
+
+  new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels: {{ quiz_name|tojson }},
+      datasets: [
+        {
+          label: 'Maximum Score',
+          data: {{ max_scores|tojson }},
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        },
+        {
+          label: 'Minimum Score',
+          data: {{ min_scores|tojson }},
+          backgroundColor: 'rgba(153, 102, 255, 0.2)',
+          borderColor: 'rgba(153, 102, 255, 1)',
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+{% endblock %}

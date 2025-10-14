@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block title %}LMS - Home{% endblock %}
+
+{% block content %}
+    <header class="text-white text-center py-5" style="background: linear-gradient(45deg, #3b8de5, #654242);">
+    <div class="container">
+        <h1>Welcome to Library Portal</h1>
+        <p class="lead">Library Management System</p>
+        <a href="/dashboard" class="btn btn-light btn-lg">Get Started</a>
+    </div>
+</header>
+
+
+    <section class="container text-center my-5">
+        <h2>Why Choose Our Library Management System?</h2>
+        <p>Our LMS streamlines book borrowing, catalog management, and user services for libraries of all sizes.</p>
+        <br>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <h4>Efficient Book Management</h4>
+                <p>Easily add, update, and track books in your library's collection.</p>
+            </div>
+            <div class="col-md-4">
+                <h4>User-Friendly Borrowing</h4>
+                <p>Members can search, reserve, and borrow books with a simple interface.</p>
+            </div>
+            <div class="col-md-4">
+                <h4>Track Borrowing History</h4>
+                <p>Monitor borrowed books, due dates, and manage returns seamlessly.</p>
+            </div>
+        </div>
+    </section>
+    <br>
+    <footer class="text-center">
+        <p class="text-muted">&copy; 2025 Library Management System. All Rights Reserved.</p>
+    </footer>
+{% endblock %}

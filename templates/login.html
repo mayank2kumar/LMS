@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Login Page
+{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-lg p-4 rounded-4" style="max-width: 450px; width: 100%;">
+        <div class="card-body">
+            
+
+            <h2 class="text-center text-primary mb-3">Login</h2>
+            <form method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label fw-bold">Username</label>
+                    <input type="text" name="username" required class="form-control" placeholder="Enter your username">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label fw-bold">Password</label>
+                    <input type="password" name="password" required class="form-control" placeholder="Enter your password">
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                </div>
+            </form>
+            <div class="mb-2"></div>
+            <div class="text-center mb-4">
+                <span><h5>Don't have an account?</h5></span>
+                <button class="btn btn-outline-primary btn-sm" onclick="switchToRegister()">Register</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function switchToRegister() {
+        window.location.href = "{{ url_for('register') }}";
+    }
+</script>
+
+{% endblock %}

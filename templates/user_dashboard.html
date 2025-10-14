@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- Tabs -->
+<ul class="nav nav-tabs justify-content-center mb-4" id="dashboardTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="catalog-tab" data-bs-toggle="tab" data-bs-target="#catalog"
+            type="button" role="tab" aria-controls="catalog" aria-selected="true">
+            📚 Book Catalog
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="mybooks-tab" data-bs-toggle="tab" data-bs-target="#mybooks"
+            type="button" role="tab" aria-controls="mybooks" aria-selected="false">
+            📖 My Borrowed Books
+        </button>
+    </li>
+</ul>
+
+<!-- Tab Contents -->
+<div class="tab-content" id="dashboardTabsContent">
+
+    <!-- Catalog Tab -->
+    <div class="tab-pane fade show active" id="catalog" role="tabpanel" aria-labelledby="catalog-tab">
+        <h2 class="text-center text-primary mb-4">📚 Book Catalog</h2>
+        <p class="text-center text-muted">Browse and borrow books from our collection</p>
+
+        <div class="row">
+            {% if books %}
+                {% for b in books %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-capitalize fw-bold">{{ b.book_name }}</h5>
+                            <p class="card-text text-muted">{{ b.description or 'No description available.' }}</p>
+                            <span class="badge bg-info text-dark">{{ b.book_author }}</span>
+                            <p class="mt-2 mb-1">📅 Published: {{ b.pub_year }}</p>
+                            <p class="fw-semibold">
+                                Available: 
+                                {% if b.available_copies > 0 %}
+                                    <span class="text-success">Yes</span>
+                                {% else %}
+                                    <span class="text-danger">No</span>
+                                {% endif %}
+                            </p>
+                            <a href="{{ url_for('borrow_book', book_id=b.id) }}" 
+                               class="btn btn-primary w-100 {% if b.available_copies == 0 %}disabled{% endif %}">
+                                📖 Borrow Book
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="text-center text-muted">
+                    <h5>No books found.</h5>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- My Borrowed Books Tab -->
+    <div class="tab-pane fade" id="mybooks" role="tabpanel" aria-labelledby="mybooks-tab">
+        <h2 class="text-center text-primary mb-4">📖 My Borrowed Books</h2>
+        <p class="text-center text-muted">View and manage your borrowed books here</p>
+
+        <div class="row">
+            {% if transactions %}
+                {% for t in transactions %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-capitalize fw-bold">{{ t.book.book_name }}</h5>
+                            <p class="card-text text-muted">{{ t.book.description or 'No description available.' }}</p>
+                            <span class="badge bg-info text-dark">{{ t.book.book_author }}</span>
+                            <p class="mt-2 mb-1">📅 Published: {{ t.book.pub_year }}</p>
+                            <p class="fw-semibold">
+                                Return Date:
+                                {{ t.return_date if t.return_date else 'Not Returned Yet' }}
+                            </p>
+                            <a href="{{ url_for('return_book', book_id=t.book.id, transaction_id=t.id) }}" 
+                               class="btn btn-danger w-100">
+                                🔄 Return Book
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="text-center text-muted">
+                    <h5>You have not borrowed any books.</h5>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}
