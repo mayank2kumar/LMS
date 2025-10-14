@@ -39,5 +39,9 @@ pip install -r requirements.txt
 ``` bash
 flask run
 
-
 The app will run on: http://127.0.0.1:5000
+```
+### Username and Password for admin Dashboard
+username -> admin
+password -> admin
+
