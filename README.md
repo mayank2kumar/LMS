@@ -21,7 +21,7 @@ git clone https://https://github.com/mayank2kumar/LMS
 ```
 ### 2. Change the Working Directory
 ```bash
-cd library-management-system
+cd LMS
 ```
 ### 3. Create a New Virtual Environment
 ``` bash
